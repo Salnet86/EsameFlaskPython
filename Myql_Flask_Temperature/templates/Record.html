@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Temperature Records</h1>
+    {% if data %}
+        <form action="{{ url_for('tempdelete') }}" method="POST">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Temperature (°C)</th>
+                        <th scope="col">Humidity (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td><input type="radio" name="id" value="{{ row[0] }}" required></td> <!-- Changed name to 'id' -->
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Delete Selected Record</button>
+        </form>
+    {% else %}
+        <p style="text-align: center;">No records found.</p>
+    {% endif %}
+
+
+    <h1 style="text-align: center;">Temperature and Humidity</h1>
+    <img src="{{ url_for('show_tem') }}" alt="Temperature and Humidity Plot">
+</body>
+</html>

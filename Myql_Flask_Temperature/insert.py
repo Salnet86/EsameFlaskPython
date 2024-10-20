@@ -13,9 +13,9 @@ app = Flask(__name__)
 def get_db_connection():
     return mysql.connector.connect(
         host='localhost',
-        user='user',
-        password='passwrd',
-        database='tuo database'
+        user='******',
+        password='*****',
+        database='*****'
     )
 
 @app.route('/index')
